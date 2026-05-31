@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strona Nawigacyjna</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Paleta bazowa */
+      --olive:       #9C9E11;
+      --yellow-lime: #EAED4A;
+      --lime:        #D1D417;
+      --moss-dark:   #535409;
+
+      /* Kolory ziemi */
+      --sand:        #F5F0E8;
+      --sand-mid:    #EDE7D6;
+      --clay:        #C8A96E;
+      --clay-light:  #E8D9B5;
+      --bark:        #5C4A1E;
+      --soil:        #3D3010;
+      --wheat:       #F0E6C8;
+
+      /* Kompozyt */
+      --bg:           #F7F3EA;
+      --bg-card:      #FDFAF3;
+      --bg-card-hover:#F0EAD6;
+      --border:       #D8CFA8;
+      --border-hover: #535409;
+      --text-main:    #2A2506;
+      --text-sub:     #4A4210;
+      --text-label:   #8A8030;
+      --accent:       #D1D417;
+      --accent-bright:#EAED4A;
+      --accent-deep:  #535409;
+      --accent-olive: #9C9E11;
+      --accent-clay:  #C8A96E;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 70% 40% at 5% 0%, rgba(234,237,74,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 35% at 95% 100%, rgba(200,169,110,0.2) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C9E11' fill-opacity='0.04'%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3Ccircle cx='37' cy='37' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      color: var(--text-main);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    /* ── HEADER ── */
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.4rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--text-main);
+      line-height: 1.05;
+    }
+
+    header h1 em {
+      font-style: italic;
+      color: var(--accent-olive);
+    }
+
+    header p {
+      margin-top: 0.55rem;
+      font-size: 0.75rem;
+      color: var(--text-label);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .divider-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 1.1rem auto 0;
+    }
+
+    .divider-header::before,
+    .divider-header::after {
+      content: '';
+      width: 32px;
+      height: 1.5px;
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    .divider-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ── NBP PANEL ── */
+    .nbp-panel {
+      width: 100%;
+      max-width: 960px;
+      margin-bottom: 2rem;
+      background: var(--accent-deep);
+      border: none;
+      border-radius: 14px;
+      padding: 1rem 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.2rem;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(83,84,9,0.2);
+    }
+
+    .nbp-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--yellow-lime);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-right: 0.4rem;
+    }
+
+    .nbp-title::before { content: '🏦'; font-size: 0.9rem; }
+
+    .nbp-rates {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.8rem;
+      flex: 1;
+    }
+
+    .nbp-rate {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0.3rem 0.75rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(234,237,74,0.2);
+      border-radius: 20px;
+      font-size: 0.82rem;
+    }
+
+    .nbp-rate .currency {
+      font-weight: 700;
+      color: #F5F0E8;
+      letter-spacing: 0.05em;
+    }
+
+    .nbp-rate .flag { font-size: 1rem; line-height: 1; }
+
+    .nbp-rate .value { color: var(--clay-light); font-weight: 300; }
+
+    .nbp-rate .change {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+
+    .nbp-rate .change.up   { color: var(--soil); background: var(--yellow-lime); }
+    .nbp-rate .change.down { color: #F5E8E8; background: rgba(160,60,60,0.5); }
+    .nbp-rate .change.flat { color: var(--clay-light); background: rgba(255,255,255,0.1); }
+
+    .nbp-date {
+      font-size: 0.67rem;
+      color: rgba(234,237,74,0.6);
+      white-space: nowrap;
+      margin-left: auto;
+      letter-spacing: 0.08em;
+    }
+
+    .nbp-loading { font-size: 0.78rem; color: var(--clay-light); font-style: italic; }
+    .nbp-error   { font-size: 0.78rem; color: #ffaaaa; }
+
+    /* ── TOOLBAR ── */
+    .toolbar {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      max-width: 960px;
+      margin-bottom: 1.4rem;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.44rem 1.1rem;
+      border-radius: 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      border: 1.5px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-sub);
+      transition: all 0.18s;
+    }
+
+    .btn:hover {
+      background: var(--accent-deep);
+      color: var(--yellow-lime);
+      border-color: var(--accent-deep);
+      box-shadow: 0 3px 12px rgba(83,84,9,0.25);
+    }
+
+    .btn.active {
+      background: var(--accent);
+      color: var(--soil);
+      border-color: var(--accent);
+      box-shadow: 0 3px 14px rgba(209,212,23,0.4);
+    }
+
+    .btn-reset:hover { background: var(--bark); color: #F5D5C0; border-color: var(--bark); }
+
+    /* ── SECTIONS ── */
+    .section {
+      width: 100%;
+      max-width: 960px;
+      margin-bottom: 2.6rem;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.9rem;
+    }
+
+    .section-label span {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-label);
+      white-space: nowrap;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .cat-news   .dot { background: var(--olive); }
+    .cat-local  .dot { background: var(--accent); }
+    .cat-shop   .dot { background: var(--clay); }
+    .cat-entert .dot { background: var(--olive); }
+    .cat-tools  .dot { background: var(--accent-deep); }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 0.65rem;
+    }
+
+    .grid a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0.9rem 1.1rem;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      color: var(--text-sub);
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      box-shadow: 0 1px 4px rgba(83,84,9,0.06);
+    }
+
+    .grid a:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-olive);
+      color: var(--text-main);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 22px rgba(83,84,9,0.14);
+    }
+
+    .grid a:hover .icon { transform: scale(1.08); }
+    .grid a:active { transform: translateY(0); box-shadow: none; }
+
+    .drag-handle {
+      display: none;
+      position: absolute;
+      top: 6px;
+      right: 7px;
+      width: 18px;
+      height: 18px;
+      align-items: center;
+      justify-content: center;
+      color: var(--border);
+      font-size: 12px;
+      line-height: 1;
+      cursor: grab;
+      border-radius: 4px;
+      transition: color 0.12s;
+    }
+
+    .drag-handle:hover { color: var(--accent-deep); }
+    .drag-handle:active { cursor: grabbing; }
+
+    body.edit-mode .drag-handle { display: flex; }
+    body.edit-mode .grid a { cursor: default; pointer-events: none; }
+    body.edit-mode .grid a .drag-handle { pointer-events: all; cursor: grab; }
+
+    .sortable-ghost {
+      opacity: 0.3;
+      background: var(--clay-light) !important;
+      border: 1.5px dashed var(--clay) !important;
+    }
+
+    .sortable-drag {
+      opacity: 1 !important;
+      box-shadow: 0 12px 36px rgba(83,84,9,0.22) !important;
+      transform: scale(1.03) rotate(1deg) !important;
+      border-color: var(--accent) !important;
+      cursor: grabbing !important;
+      z-index: 999;
+    }
+
+    body.edit-mode .grid a:hover {
+      transform: none;
+      border-color: var(--clay);
+      background: var(--bg-card);
+      box-shadow: none;
+    }
+
+    /* ── ICONS ── */
+    .icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 17px;
+      transition: transform 0.2s;
+    }
+
+    .ic-moss    { background: rgba(83,84,9,0.1);   color: #535409; }
+    .ic-lime    { background: rgba(209,212,23,0.18); color: #6B6E00; }
+    .ic-olive   { background: rgba(156,158,17,0.14); color: #5C5F00; }
+    .ic-clay    { background: rgba(200,169,110,0.25); color: #8A6030; }
+    .ic-sand    { background: rgba(245,240,232,0.9); color: #7A6030; border: 1px solid var(--clay-light); }
+    .ic-wheat   { background: rgba(240,230,200,0.6); color: #6A5020; }
+    .ic-bark    { background: rgba(92,74,30,0.1);   color: #5C4A1E; }
+
+    .link-text strong {
+      display: block;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.01em;
+    }
+
+    .link-text span {
+      display: block;
+      color: var(--text-label);
+      font-size: 0.72rem;
+      margin-top: 2px;
+      font-weight: 300;
+    }
+
+    .edit-hint {
+      display: none;
+      width: 100%;
+      max-width: 960px;
+      margin-bottom: 1rem;
+      padding: 0.5rem 1rem;
+      background: rgba(209,212,23,0.12);
+      border: 1.5px solid var(--accent);
+      border-radius: 8px;
+      font-size: 0.74rem;
+      color: var(--accent-deep);
+      letter-spacing: 0.04em;
+      font-weight: 500;
+    }
+
+    body.edit-mode .edit-hint { display: block; }
+
+    footer {
+      margin-top: 1.2rem;
+      font-size: 0.7rem;
+      color: var(--text-label);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Strona <em>Nawigacyjna</em></h1>
+    <p>Nawigacja &mdash; Zakładki</p>
+    <div class="divider-header"><div class="divider-dot"></div></div>
+  </header>
+
+  <div class="nbp-panel" id="nbp-panel">
+    <div class="nbp-title">Kursy NBP</div>
+    <div class="nbp-rates" id="nbp-rates">
+      <span class="nbp-loading">Pobieranie kursów&hellip;</span>
+    </div>
+    <div class="nbp-date" id="nbp-date"></div>
+  </div>
+
+  <div class="toolbar">
+    <button class="btn btn-reset" id="btn-reset" title="Przywróć domyślną kolejność">&#8635; Reset</button>
+    <button class="btn" id="btn-edit">&#9998; Edytuj kolejność</button>
+  </div>
+
+  <div class="edit-hint">&#9432;&nbsp; Przeciągnij kafelki za uchwyt (&#8942;) aby zmienić ich kolejność. Kolejność jest zapisywana automatycznie.</div>
+
+  <!-- INFORMACYJNE -->
+  <div class="section cat-news">
+    <div class="section-label"><div class="dot"></div><span>Informacyjne</span></div>
+    <div class="grid" id="grid-news">
+
+      <a href="https://www.wikipedia.org" target="_blank" data-id="wikipedia">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-lime">&#9642;</div>
+        <div class="link-text"><strong>Wikipedia</strong><span>Encyklopedia online</span></div>
+      </a>
+
+      <a href="https://www.wp.pl/" target="_blank" data-id="wp">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-olive">&#9670;</div>
+        <div class="link-text"><strong>WP.pl</strong><span>Portal informacyjny</span></div>
+      </a>
+
+      <a href="https://www.onet.pl" target="_blank" data-id="onet">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-moss">&#9632;</div>
+        <div class="link-text"><strong>Onet</strong><span>Wiadomości i portal</span></div>
+      </a>
+
+      <a href="https://www.gazeta.pl/0,0.html" target="_blank" data-id="gazetapl">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-clay">&#9673;</div>
+        <div class="link-text"><strong>Gazeta.pl</strong><span>Wiadomości i publicystyka</span></div>
+      </a>
+
+      <a href="https://www.infor.pl/" target="_blank" data-id="infor">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-bark">&#9724;</div>
+        <div class="link-text"><strong>Infor.pl</strong><span>Prawo, podatki, kadry</span></div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- LOKALNE -->
+  <div class="section cat-local">
+    <div class="section-label"><div class="dot"></div><span>Lokalne &mdash; Trójmiasto</span></div>
+    <div class="grid" id="grid-local">
+
+      <a href="https://www.trojmiasto.pl/" target="_blank" data-id="trojmiasto">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-clay">&#9670;</div>
+        <div class="link-text"><strong>Trojmiasto.pl</strong><span>Portal Trójmiasta</span></div>
+      </a>
+
+      <a href="https://dziennikbaltycki.pl/" target="_blank" data-id="dziennik">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-wheat">&#9642;</div>
+        <div class="link-text"><strong>Dziennik Bałtycki</strong><span>Wiadomości regionalne</span></div>
+      </a>
+
+      <a href="https://nadmorski24.pl/" target="_blank" data-id="nadmorski">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-lime">&#9675;</div>
+        <div class="link-text"><strong>Nadmorski24</strong><span>Aktualności nadmorskie</span></div>
+      </a>
+
+      <a href="https://telewizjattm.pl/" target="_blank" data-id="ttm">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-olive">&#9654;</div>
+        <div class="link-text"><strong>Telewizja TTM</strong><span>TV lokalna Trójmiasto</span></div>
+      </a>
+
+      <a href="https://www.bibliotekarumia.pl/" target="_blank" data-id="bibliotekarumia">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-moss">&#9636;</div>
+        <div class="link-text"><strong>Biblioteka Rumia</strong><span>Biblioteka Miejska</span></div>
+      </a>
+
+      <a href="https://tkchopin.pl/" target="_blank" data-id="tkchopin">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-bark">&#9834;</div>
+        <div class="link-text"><strong>TK Chopin</strong><span>Teatr i kultura</span></div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ZAKUPY -->
+  <div class="section cat-shop">
+    <div class="section-label"><div class="dot"></div><span>Zakupy</span></div>
+    <div class="grid" id="grid-shop">
+
+      <a href="https://www.amazon.pl/" target="_blank" data-id="amazon">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-clay">&#9673;</div>
+        <div class="link-text"><strong>Amazon</strong><span>Sklep internetowy</span></div>
+      </a>
+
+      <a href="https://www.allegro.pl/" target="_blank" data-id="allegro">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-wheat">&#9679;</div>
+        <div class="link-text"><strong>Allegro</strong><span>Największy polski sklep</span></div>
+      </a>
+
+      <a href="https://www.olx.pl/" target="_blank" data-id="olx">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-lime">&#9650;</div>
+        <div class="link-text"><strong>OLX</strong><span>Ogłoszenia kupię / sprzedam</span></div>
+      </a>
+
+      <a href="https://www.ceneo.pl/" target="_blank" data-id="ceneo">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-olive">&#9660;</div>
+        <div class="link-text"><strong>Ceneo</strong><span>Porównywarka cen</span></div>
+      </a>
+
+      <a href="https://www.empik.com/" target="_blank" data-id="empik">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-bark">&#9632;</div>
+        <div class="link-text"><strong>Empik</strong><span>Książki, muzyka, elektronika</span></div>
+      </a>
+
+      <a href="https://www.morele.net/" target="_blank" data-id="morele">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-moss">&#9670;</div>
+        <div class="link-text"><strong>Morele.net</strong><span>Elektronika i sprzęt RTV</span></div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ROZRYWKA -->
+  <div class="section cat-entert">
+    <div class="section-label"><div class="dot"></div><span>Rozrywka</span></div>
+    <div class="grid" id="grid-entert">
+
+      <a href="https://www.youtube.com" target="_blank" data-id="youtube">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-clay">&#9654;</div>
+        <div class="link-text"><strong>YouTube</strong><span>Wideo i muzyka</span></div>
+      </a>
+
+      <a href="https://www.netflix.com/" target="_blank" data-id="netflix">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-bark">&#9646;</div>
+        <div class="link-text"><strong>Netflix</strong><span>Filmy i seriale online</span></div>
+      </a>
+
+      <a href="https://www.player.pl/" target="_blank" data-id="player">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-olive">&#9654;</div>
+        <div class="link-text"><strong>Player.pl</strong><span>TVN — filmy i seriale</span></div>
+      </a>
+
+      <a href="https://www.tvp.pl/" target="_blank" data-id="tvp">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-moss">&#9632;</div>
+        <div class="link-text"><strong>TVP VOD</strong><span>Telewizja Polska online</span></div>
+      </a>
+
+      <a href="https://open.spotify.com/" target="_blank" data-id="spotify">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-lime">&#9836;</div>
+        <div class="link-text"><strong>Spotify</strong><span>Muzyka i podcasty</span></div>
+      </a>
+
+      <a href="https://www.filmweb.pl/" target="_blank" data-id="filmweb">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-wheat">&#9733;</div>
+        <div class="link-text"><strong>Filmweb</strong><span>Baza filmów i recenzje</span></div>
+      </a>
+
+      <a href="https://opentv.com/" target="_blank" data-id="opentv">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-sand">&#9654;</div>
+        <div class="link-text"><strong>OpenTV</strong><span>Telewizja online</span></div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- NARZĘDZIA -->
+  <div class="section cat-tools">
+    <div class="section-label"><div class="dot"></div><span>Narzędzia</span></div>
+    <div class="grid" id="grid-tools">
+
+      <a href="https://www.google.pl" target="_blank" data-id="google">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-lime">&#9679;</div>
+        <div class="link-text"><strong>Google</strong><span>Wyszukiwarka</span></div>
+      </a>
+
+      <a href="https://github.com" target="_blank" data-id="github">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-bark">&#123;&#125;</div>
+        <div class="link-text"><strong>GitHub</strong><span>Repozytoria kodu</span></div>
+      </a>
+
+      <a href="https://freefilesync.org/" target="_blank" data-id="freefilesync">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-moss">&#8651;</div>
+        <div class="link-text"><strong>FreeFileSync</strong><span>Synchronizacja plików</span></div>
+      </a>
+
+      <a href="https://veracrypt.io/en/Home.html" target="_blank" data-id="veracrypt">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-olive">&#128274;</div>
+        <div class="link-text"><strong>VeraCrypt</strong><span>Szyfrowanie dysków</span></div>
+      </a>
+
+      <a href="https://www.videolan.org/" target="_blank" data-id="vlc">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-clay">&#9654;</div>
+        <div class="link-text"><strong>VLC</strong><span>Odtwarzacz multimedialny</span></div>
+      </a>
+
+      <a href="https://www.betterbird.eu/donate/" target="_blank" data-id="betterbird">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-wheat">&#9993;</div>
+        <div class="link-text"><strong>Betterbird</strong><span>Klient poczty e-mail</span></div>
+      </a>
+
+      <a href="https://tinywow.com/tools" target="_blank" data-id="tinywow">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-lime">&#9889;</div>
+        <div class="link-text"><strong>TinyWow</strong><span>Narzędzia online</span></div>
+      </a>
+
+      <a href="https://www.anthropic.com" target="_blank" data-id="anthropic">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-moss">&#9651;</div>
+        <div class="link-text"><strong>Anthropic</strong><span>Badania AI</span></div>
+      </a>
+
+      <a href="https://pllum.org.pl/" target="_blank" data-id="pllum">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-olive">&#9670;</div>
+        <div class="link-text"><strong>PLLuM</strong><span>Polski model językowy</span></div>
+      </a>
+
+      <a href="https://chat.bielik.ai/" target="_blank" data-id="bielik">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-bark">&#9679;</div>
+        <div class="link-text"><strong>Bielik AI</strong><span>Polski asystent AI</span></div>
+      </a>
+
+      <a href="https://gemini.google.com/" target="_blank" data-id="gemini">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-lime">&#10024;</div>
+        <div class="link-text"><strong>Gemini</strong><span>Asystent AI Google</span></div>
+      </a>
+
+      <a href="https://www.perplexity.ai/" target="_blank" data-id="perplexity">
+        <span class="drag-handle">&#8942;&#8942;</span>
+        <div class="icon ic-clay">&#9670;</div>
+        <div class="link-text"><strong>Perplexity</strong><span>Wyszukiwarka AI</span></div>
+      </a>
+
+    </div>
+  </div>
+
+  <footer>&copy; 2026 &mdash; Moja Strona</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+  <script>
+    const NBP_CURRENCIES = [
+      { code: 'USD', flag: '🇺🇸' },
+      { code: 'EUR', flag: '🇪🇺' },
+      { code: 'GBP', flag: '🇬🇧' },
+      { code: 'CHF', flag: '🇨🇭' },
+      { code: 'JPY', flag: '🇯🇵' },
+    ];
+
+    async function fetchNBP() {
+      const ratesEl = document.getElementById('nbp-rates');
+      const dateEl  = document.getElementById('nbp-date');
+      try {
+        const res  = await fetch('https://api.nbp.pl/api/exchangerates/tables/A/?format=json');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        const table = data[0];
+        const ratesMap = {};
+        table.rates.forEach(r => { ratesMap[r.code] = r.mid; });
+
+        const res2 = await fetch('https://api.nbp.pl/api/exchangerates/tables/A/last/2/?format=json');
+        const data2 = res2.ok ? await res2.json() : null;
+        let prevMap = {};
+        if (data2 && data2.length >= 2) {
+          data2[0].rates.forEach(r => { prevMap[r.code] = r.mid; });
+        }
+
+        ratesEl.innerHTML = '';
+        NBP_CURRENCIES.forEach(({ code, flag }) => {
+          const val = ratesMap[code];
+          if (!val) return;
+          const prev = prevMap[code];
+          let changeHtml = '';
+          if (prev) {
+            const diff = val - prev;
+            const pct  = ((diff / prev) * 100).toFixed(2);
+            if (Math.abs(diff) < 0.00001) {
+              changeHtml = `<span class="change flat">0,00%</span>`;
+            } else if (diff > 0) {
+              changeHtml = `<span class="change up">▲ ${pct.replace('.',',')}%</span>`;
+            } else {
+              changeHtml = `<span class="change down">▼ ${Math.abs(pct).toString().replace('.',',')}%</span>`;
+            }
+          }
+          const valFmt = val.toFixed(4).replace('.', ',');
+          ratesEl.insertAdjacentHTML('beforeend', `
+            <div class="nbp-rate">
+              <span class="flag">${flag}</span>
+              <span class="currency">${code}</span>
+              <span class="value">${valFmt} PLN</span>
+              ${changeHtml}
+            </div>
+          `);
+        });
+
+        const d = new Date(table.effectiveDate);
+        dateEl.textContent = 'Notowanie: ' + d.toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+      } catch (e) {
+        ratesEl.innerHTML = `<span class="nbp-error">Nie udało się pobrać kursów NBP. Sprawdź połączenie.</span>`;
+        console.error('NBP fetch error:', e);
+      }
+    }
+
+    fetchNBP();
+
+    const GRIDS = [
+      { el: document.getElementById('grid-news'),   key: 'order-news'   },
+      { el: document.getElementById('grid-local'),  key: 'order-local'  },
+      { el: document.getElementById('grid-shop'),   key: 'order-shop'   },
+      { el: document.getElementById('grid-entert'), key: 'order-entert' },
+      { el: document.getElementById('grid-tools'),  key: 'order-tools'  },
+    ];
+
+    const btnEdit  = document.getElementById('btn-edit');
+    const btnReset = document.getElementById('btn-reset');
+    let editMode = false;
+
+    function applyOrder(grid, key) {
+      const saved = localStorage.getItem(key);
+      if (!saved) return;
+      const ids = JSON.parse(saved);
+      const map = {};
+      [...grid.children].forEach(el => { map[el.dataset.id] = el; });
+      ids.forEach(id => { if (map[id]) grid.appendChild(map[id]); });
+    }
+
+    function saveOrder(grid, key) {
+      const ids = [...grid.children].map(el => el.dataset.id);
+      localStorage.setItem(key, JSON.stringify(ids));
+    }
+
+    GRIDS.forEach(({ el, key }) => {
+      applyOrder(el, key);
+      Sortable.create(el, {
+        handle: '.drag-handle',
+        animation: 160,
+        ghostClass: 'sortable-ghost',
+        dragClass: 'sortable-drag',
+        disabled: true,
+        onEnd() { saveOrder(el, key); }
+      });
+    });
+
+    btnEdit.addEventListener('click', () => {
+      editMode = !editMode;
+      document.body.classList.toggle('edit-mode', editMode);
+      btnEdit.classList.toggle('active', editMode);
+      btnEdit.textContent = editMode ? '✓ Gotowe' : '✎ Edytuj kolejność';
+      GRIDS.forEach(({ el }) => {
+        Sortable.get(el).option('disabled', !editMode);
+      });
+    });
+
+    btnReset.addEventListener('click', () => {
+      if (!confirm('Przywrócić domyślną kolejność kafelków?')) return;
+      GRIDS.forEach(({ key }) => localStorage.removeItem(key));
+      location.reload();
+    });
+  </script>
+</body>
+</html>
